@@ -1,29 +1,65 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { AppComponent } from "./app.component";
 
-describe('AppComponent', () => {
+describe("AppComponent", () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let compiled: HTMLElement;
+  let app: AppComponent;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
     }).compileComponents();
+    fixture = TestBed.createComponent(AppComponent);
+    compiled = fixture.nativeElement as HTMLElement;
+    app = fixture.componentInstance;
   });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+  it("should create the app", () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'zoneless-calculator' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('zoneless-calculator');
+  it("should be 3", () => {
+    const num1 = 1;
+    const num2 = 2;
+    const result = num1 + num2;
+    expect(result).toBe(3);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, zoneless-calculator');
+  it(`should have the 'zoneless-calculator' title`, () => {
+    expect(app.title).toEqual("zoneless-calculator");
+  });
+
+  it("should render router outlet", () => {
+    expect(compiled.querySelector("router-outlet")).not.toBeNull();
+  });
+
+  it("should render router-outlet wrapped css classes", () => {
+    const divElement = compiled.querySelector("div");
+
+    const mustHaveClasses =
+      "min-w-screen min-h-screen bg-slate-600 flex items-center justify-center px-5 py-5".split(
+        " ",
+      );
+
+    expect(divElement).not.toBeNull();
+
+    const divClasses = divElement?.classList;
+    mustHaveClasses.forEach((className) => {
+      expect(divClasses).toContain(className);
+    });
+  });
+
+  it("should contain the ' buy me a beer ' link", () => {
+    const tagElement = compiled.querySelector("a");
+    const anchorTag = tagElement;
+
+    expect(anchorTag).not.toBeNull();
+    expect(anchorTag?.getAttribute("href")).not.toBeNull();
+    expect(anchorTag?.getAttribute("title")).not.toBeNull();
+    expect(anchorTag?.getAttribute("href")).toBe(
+      "https://www.buymeacoffee.com/scottwindon",
+    );
+    expect(anchorTag?.getAttribute("title")).toBe("Buy me a beer");
   });
 });
