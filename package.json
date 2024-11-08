@@ -9,7 +9,7 @@
 		"test": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
 		"test:coverage": "ng test --code-coverage",
 		"stats": "ng build --stats-json & webpack-bundle-analyzer dist/my-app/stats.json",
-		"formatPrettierc": "prettier --write \"src/**/*.ts\" \"src/**/*.ts\" \"src/**/*.html\"  \"src/**/*.scss\"  \"src/**/*.css\"",
+		"formatPrettierrc": "prettier --write \"src/**/*.ts\" \"src/**/*.ts\" \"src/**/*.html\"  \"src/**/*.scss\"  \"src/**/*.css\"",
 		"format": "lint-staged",
 		"prepare": "husky"
 	},
